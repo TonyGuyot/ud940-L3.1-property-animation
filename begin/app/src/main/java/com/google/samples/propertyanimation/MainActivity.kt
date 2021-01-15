@@ -19,6 +19,7 @@ package com.google.samples.propertyanimation
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -50,10 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         rotateButton.setOnClickListener { rotate() }
         translateButton.setOnClickListener { translate() }
-
-        scaleButton.setOnClickListener {
-            scaler()
-        }
+        scaleButton.setOnClickListener { scale() }
 
         fadeButton.setOnClickListener {
             fader()
@@ -94,7 +92,14 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun scaler() {
+    private fun scale() {
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 4.0f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 4.0f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(star, scaleX, scaleY)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(scaleButton)
+        animator.start()
     }
 
     private fun fader() {
