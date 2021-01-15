@@ -16,8 +16,12 @@
 
 package com.google.samples.propertyanimation
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 
@@ -44,9 +48,7 @@ class MainActivity : AppCompatActivity() {
         colorizeButton = findViewById(R.id.colorizeButton)
         showerButton = findViewById(R.id.showerButton)
 
-        rotateButton.setOnClickListener {
-            rotater()
-        }
+        rotateButton.setOnClickListener { rotate() }
 
         translateButton.setOnClickListener {
             translater()
@@ -69,7 +71,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun rotater() {
+    private fun rotate() {
+        val animator = ObjectAnimator.ofFloat(star, View.ROTATION, -360.0f, 0.0f)
+        animator.duration = 1000
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                rotateButton.isEnabled = false
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                rotateButton.isEnabled = true
+            }
+        })
+        animator.start()
     }
 
     private fun translater() {
