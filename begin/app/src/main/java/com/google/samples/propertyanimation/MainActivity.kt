@@ -20,6 +20,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -53,10 +54,7 @@ class MainActivity : AppCompatActivity() {
         translateButton.setOnClickListener { translate() }
         scaleButton.setOnClickListener { scale() }
         fadeButton.setOnClickListener { fade() }
-
-        colorizeButton.setOnClickListener {
-            colorizer()
-        }
+        colorizeButton.setOnClickListener { colorize() }
 
         showerButton.setOnClickListener {
             shower()
@@ -107,7 +105,14 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun colorizer() {
+    private fun colorize() {
+        val animator = ObjectAnimator.ofArgb(star.parent, "backgroundColor", Color.BLACK,
+            Color.RED)
+        animator.duration = 500
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(fadeButton)
+        animator.start()
     }
 
     private fun shower() {
