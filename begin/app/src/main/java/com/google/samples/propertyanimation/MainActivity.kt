@@ -24,25 +24,25 @@ import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var star: ImageView
-    lateinit var rotateButton: Button
-    lateinit var translateButton: Button
-    lateinit var scaleButton: Button
-    lateinit var fadeButton: Button
-    lateinit var colorizeButton: Button
-    lateinit var showerButton: Button
+    private lateinit var star: ImageView
+    private lateinit var rotateButton: Button
+    private lateinit var translateButton: Button
+    private lateinit var scaleButton: Button
+    private lateinit var fadeButton: Button
+    private lateinit var colorizeButton: Button
+    private lateinit var showerButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         star = findViewById(R.id.star)
-        rotateButton = findViewById<Button>(R.id.rotateButton)
-        translateButton = findViewById<Button>(R.id.translateButton)
-        scaleButton = findViewById<Button>(R.id.scaleButton)
-        fadeButton = findViewById<Button>(R.id.fadeButton)
-        colorizeButton = findViewById<Button>(R.id.colorizeButton)
-        showerButton = findViewById<Button>(R.id.showerButton)
+        rotateButton = findViewById(R.id.rotateButton)
+        translateButton = findViewById(R.id.translateButton)
+        scaleButton = findViewById(R.id.scaleButton)
+        fadeButton = findViewById(R.id.fadeButton)
+        colorizeButton = findViewById(R.id.colorizeButton)
+        showerButton = findViewById(R.id.showerButton)
 
         rotateButton.setOnClickListener {
             rotater()
