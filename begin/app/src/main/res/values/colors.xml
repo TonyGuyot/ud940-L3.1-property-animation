@@ -20,5 +20,6 @@
     <color name="primaryLightColor">#98ee99</color>
     <color name="primaryDarkColor">#338a3e</color>
     <color name="primaryTextColor">#000000</color>
-    <color name="black">#000</color>
+    <color name="black">@android:color/black</color>
+    <color name="red">@android:color/holo_red_dark</color>
 </resources>

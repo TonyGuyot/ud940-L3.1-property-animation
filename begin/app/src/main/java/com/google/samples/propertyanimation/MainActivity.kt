@@ -71,47 +71,45 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun ObjectAnimator.performAnimation(button: Button, reverse: Boolean = true) {
+        duration = DURATION
+        if (reverse) {
+            repeatCount = 1
+            repeatMode = ObjectAnimator.REVERSE
+        }
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) { button.isEnabled = false }
+            override fun onAnimationEnd(animation: Animator?) { button.isEnabled = true }
+        })
+        start()
+    }
+
     private fun rotate() {
         val animator = ObjectAnimator.ofFloat(star, View.ROTATION, -360.0f, 0.0f)
-        animator.duration = 1000
-        animator.disableViewDuringAnimation(rotateButton)
-        animator.start()
+        animator.performAnimation(rotateButton, reverse = false)
     }
 
     private fun translate() {
         val animator = ObjectAnimator.ofFloat(star, View.TRANSLATION_X, 200.0f)
-        animator.repeatCount = 1
-        animator.repeatMode = ObjectAnimator.REVERSE
-        animator.disableViewDuringAnimation(translateButton)
-        animator.start()
+        animator.performAnimation(translateButton)
     }
 
     private fun scale() {
         val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 4.0f)
         val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 4.0f)
         val animator = ObjectAnimator.ofPropertyValuesHolder(star, scaleX, scaleY)
-        animator.repeatCount = 1
-        animator.repeatMode = ObjectAnimator.REVERSE
-        animator.disableViewDuringAnimation(scaleButton)
-        animator.start()
+        animator.performAnimation(scaleButton)
     }
 
     private fun fade() {
         val animator = ObjectAnimator.ofFloat(star, View.ALPHA, 0.0f)
-        animator.repeatCount = 1
-        animator.repeatMode = ObjectAnimator.REVERSE
-        animator.disableViewDuringAnimation(fadeButton)
-        animator.start()
+        animator.performAnimation(fadeButton)
     }
 
     private fun colorize() {
-        val animator = ObjectAnimator.ofArgb(star.parent, "backgroundColor", Color.BLACK,
-            Color.RED)
-        animator.duration = 500
-        animator.repeatCount = 1
-        animator.repeatMode = ObjectAnimator.REVERSE
-        animator.disableViewDuringAnimation(fadeButton)
-        animator.start()
+        val animator = ObjectAnimator.ofArgb(star.parent, "backgroundColor",
+            Color.BLACK, Color.RED)
+        animator.performAnimation(fadeButton)
     }
 
     private fun shower() {
@@ -120,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         val containerH = container.height
         var starW: Float = star.width.toFloat()
         var starH: Float = star.height.toFloat()
+
         val newStar = AppCompatImageView(this)
         newStar.setImageResource(R.drawable.ic_star)
         newStar.layoutParams = FrameLayout.LayoutParams(
@@ -148,5 +147,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
         set.start()
+    }
+
+    companion object {
+        private const val DURATION = 1000L
     }
 }
