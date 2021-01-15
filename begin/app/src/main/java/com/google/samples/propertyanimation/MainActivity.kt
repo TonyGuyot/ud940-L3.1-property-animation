@@ -52,10 +52,7 @@ class MainActivity : AppCompatActivity() {
         rotateButton.setOnClickListener { rotate() }
         translateButton.setOnClickListener { translate() }
         scaleButton.setOnClickListener { scale() }
-
-        fadeButton.setOnClickListener {
-            fader()
-        }
+        fadeButton.setOnClickListener { fade() }
 
         colorizeButton.setOnClickListener {
             colorizer()
@@ -102,7 +99,12 @@ class MainActivity : AppCompatActivity() {
         animator.start()
     }
 
-    private fun fader() {
+    private fun fade() {
+        val animator = ObjectAnimator.ofFloat(star, View.ALPHA, 0.0f)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.disableViewDuringAnimation(fadeButton)
+        animator.start()
     }
 
     private fun colorizer() {
